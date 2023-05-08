@@ -1,0 +1,20 @@
+<%- include("templates/header") %> 
+	
+<% if (!username) { %>
+		Name is required<br>
+		<% missingField = true %>
+	<% } %>
+	<% if (!email) { %>
+		Email is required<br>
+		<% missingField=true %>
+	<% } %>
+	<% if (!password) { %>
+		Password is required<br>
+		<% missingField=true %>
+	<% } %>
+	<% if (missingField) { %>
+		<br>
+		<a href="/signup">Try Again</a>
+	<% } %>
+
+<%- include("templates/footer") %> 

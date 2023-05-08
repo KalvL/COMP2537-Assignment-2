@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <img src="/nyancat.gif" id="logo">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <% for (var i = 0; i<navLinks.length; i++ ) { %>
+          <li class="nav-item">
+            <a class="nav-link <% if (locals.navLinks[i].link == locals.currentURL) { %> active 
+              <% } %> " aria-current="page" href="<%= locals.navLinks[i].link %>"><%= navLinks[i].name %></a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

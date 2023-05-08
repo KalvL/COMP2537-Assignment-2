@@ -1,0 +1,13 @@
+<%- include("templates/header") %>
+
+
+<div class="center py-5 text-center">
+  <form action="/members" method="get">
+    <div class="h3">Hello, <%= username %>!</div>
+    <button type="submit" formaction='/members' class="btn btn-primary button">Go to Members Area</button>
+    <button type="submit" formaction='/logout' class="btn btn-outline-primary button">Logout</button>
+  </form>
+</div>
+
+
+<%- include("templates/footer") %>

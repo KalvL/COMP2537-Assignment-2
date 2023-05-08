@@ -1,0 +1,17 @@
+<%- include("templates/header") %>
+
+<div class="members text-center"> 
+  <h1 class="h3 fw-normal py-3">Weclome, <%= username %></h1><br>
+  
+  <img class="col-md-4" src="/nyancat.gif">
+  <img class="col-md-4" src="/fluffy.gif">
+  <img class="col-md-4" src="/socks.gif">
+
+  <form action="/logout" method="get">
+    <button class="btn btn-lg btn-primary" type="submit">Sign out</button>
+  </form>
+  <div class="py-5"></div>
+</div>
+
+
+<%- include("templates/footer") %>
