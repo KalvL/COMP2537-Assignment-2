@@ -92,23 +92,13 @@ function isAdmin(req) {
 function adminAuthorization(req, res, next) {
   if (!isAdmin(req)) {
     res.status(403);
-    res.render("errorMessage", { error: "Not Authorized" });
+    res.render("errorMessage", { error: "403 - Not Authorized" });
     return;
   }
   else {
     next();
   }
 }
-
-// Homepage
-app.get('/', (req, res) => {
-  username = req.session.username;
-  if (!req.session.authenticated) {
-    res.render("index");
-  } else {
-    res.render("index-authorized", {username: username});
-  }
-});
 
 // NoSQL injection attack validation
 app.get('/nosql-injection', async (req, res) => {
@@ -123,11 +113,6 @@ app.get('/nosql-injection', async (req, res) => {
   const schema = Joi.string().max(20).required();
   const validationResult = schema.validate(username);
 
-  //If we didn't use Joi to validate and check for a valid URL parameter below
-  // we could run our userCollection.find and it would be possible to attack.
-  // A URL parameter of user[$ne]=name would get executed as a MongoDB command
-  // and may result in revealing information about all users or a successful
-  // login without knowing the correct password.
   if (validationResult.error != null) {
     console.log(validationResult.error);
     res.send("<h1 style='color:darkred;'>A NoSQL injection attack was detected!!</h1>");
@@ -137,16 +122,6 @@ app.get('/nosql-injection', async (req, res) => {
   const result = await userCollection.find({ username: username }).project({ username: 1, password: 1, _id: 1 }).toArray();
   console.log(result);
   res.send(`<h1>Hello ${username}</h1>`);
-});
-
-// Sign up page
-app.get('/signup', (req, res) => {
-  res.render("signup");
-});
-
-// Login page
-app.get('/login', (req, res) => {
-  res.render("login", { navLinks: navLinks });
 });
 
 // Sign up validation
@@ -225,10 +200,30 @@ app.post('/loginSubmit', async (req, res) => {
   }
 });
 
+// Sign up page
+app.get('/signup', (req, res) => {
+  res.render("signup");
+});
+
+// Login page
+app.get('/login', (req, res) => {
+  res.render("login", { navLinks: navLinks });
+});
+
 // Logout and destroy session
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect("/");
+});
+
+// Homepage
+app.get('/', (req, res) => {
+  username = req.session.username;
+  if (!req.session.authenticated) {
+    res.render("index");
+  } else {
+    res.render("index-authorized", { username: username });
+  }
 });
 
 // Admin Page
