@@ -1,1 +1,14 @@
-<li> <%= user.username %> </li>
+<ul>
+  <% let i=0; %>
+    <% for(i=0; i < users.length; i++) { %>
+      <%= users[i].username %>
+        (<%= users[i].user_type %>)
+          <form>
+            <button formaction="/promote" method="get" name="promote" value="<%= users[i].username %>"
+              class="btn btn-sm btn-primary button" type="submit">Promote to Admin</button>
+            <button formaction="/demote" method="get" name="demote" value="<%= users[i].username %>"
+              class="btn btn-sm btn-danger button" type="submit">Demote to User</button>
+          </form>
+          <br>
+          <% } %>
+</ul>
